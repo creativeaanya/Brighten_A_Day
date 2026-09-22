@@ -23,23 +23,32 @@ jobs:
 
       - name: Check secrets are configured
         env:
-          MY_EMAIL: ${{ secrets.MY_EMAIL }}
-          MY_PASSWORD: ${{ secrets.MY_PASSWORD }}
+          SEND_FROM: ${{ secrets.SEND_FROM }}
+          SEND_TO: ${{ secrets.SEND_TO }}
+          PWD: ${{ secrets.PWD }}
         run: |
-          if [ -z "$MY_EMAIL" ]; then
-            echo "MY_EMAIL secret is not set!"
+          if [ -z "$SEND_FROM" ]; then
+            echo "SEND_FROM secret is not set!"
             echo "Go to Settings > Secrets > Actions and add it."
             exit 1
           else
-            echo "MY_EMAIL is configured"
+            echo "SEND_FROM is configured"
           fi
 
-          if [ -z "$MY_PASSWORD" ]; then
-            echo "MY_PASSWORD secret is not set!"
+          if [ -z "$SEND_TO" ]; then
+            echo "SEND_TO secret is not set!"
             echo "Go to Settings > Secrets > Actions and add it."
             exit 1
           else
-            echo "MY_PASSWORD is configured"
+            echo "SEND_TO is configured"
+          fi
+
+          if [ -z "$PWD" ]; then
+            echo "PWD secret is not set!"
+            echo "Go to Settings > Secrets > Actions and add it."
+            exit 1
+          else
+            echo "PWD is configured"
           fi
 
           echo ""
@@ -63,10 +72,10 @@ jobs:
             exit 1
           fi
 
-          if [ -f "birthdays.csv" ]; then
-            echo "birthdays.csv found"
+          if [ -f "quotes.csv" ]; then
+            echo "quotes.csv found"
           else
-            echo "birthdays.csv not found!"
+            echo "quotes.csv not found!"
             exit 1
           fi
 
