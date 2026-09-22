@@ -8,7 +8,7 @@ import smtplib
 import os
 
 SEND_FROM = os.environ.get("SEND_FROM")
-SEND_TO = os.environ.get("SEND_TO")
+SEND_TO = os.environ.get("SEND_TO", "").split(",")
 PWD = os.environ.get("PWD")
 
 data = pandas.read_csv("quotes.csv")
