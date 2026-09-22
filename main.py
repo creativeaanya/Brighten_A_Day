@@ -5,9 +5,11 @@
 import random
 import pandas
 import smtplib
+import os
 
-SEND_FROM = ""
-SEND_TO = []
+SEND_FROM = os.environ.get("SEND_FROM")
+SEND_TO = os.environ.get("SEND_TO")
+PWD = os.environ.get("PWD")
 
 data = pandas.read_csv("quotes.csv")
 
@@ -32,7 +34,7 @@ def send_email(quote_msg):
     for addr in SEND_TO:
         with smtplib.SMTP("smtp.mail.yahoo.com",587) as connection:
             connection.starttls()
-            connection.login(user=SEND_FROM, password="")
+            connection.login(user=SEND_FROM, password=PWD)
             connection.sendmail(from_addr=SEND_FROM, to_addrs=str(addr), msg=safe_msg)
         
 # Executed Code 
